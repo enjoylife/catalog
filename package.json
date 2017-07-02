@@ -1,6 +1,6 @@
 {
-  "name": "catalog",
-  "version": "3.0.0-rc.3",
+  "name": "@enjoylife/catalog",
+  "version": "3.0.0-rc.3-scss",
   "description": "Create living style guides using Markdown or React",
   "keywords": [
     "styleguide",
