@@ -24,7 +24,7 @@ export default (paths: Object, useBabelrc: boolean, dev: boolean) => ({
       exclude: [
         /\.html$/,
         /\.(js|jsx)$/,
-        /\.css$/,
+        /\.(scss|css)$/,
         /\.json$/,
         /\.bmp$/,
         /\.gif$/,
@@ -69,17 +69,19 @@ export default (paths: Object, useBabelrc: boolean, dev: boolean) => ({
     (
     dev
       ? {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         use: [
           'style-loader', {
             loader: 'css-loader',
             options: {
-              importLoaders: 1
+              importLoaders: 1,
+                sourceMap: true
             }
           }, {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                sourceMap: true,
               plugins: function() {
                 return [
                   autoprefixer({
@@ -93,11 +95,16 @@ export default (paths: Object, useBabelrc: boolean, dev: boolean) => ({
                 ];
               }
             }
-          }
+          }, {
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: true
+                }
+            }
         ]
       }
     : {
-      test: /\.css$/,
+      test: /\.(scss|css)$/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: [
@@ -110,6 +117,7 @@ export default (paths: Object, useBabelrc: boolean, dev: boolean) => ({
             loader: 'postcss-loader',
             options: {
               ident: 'postcss', // https://webpack.js.org/guides/migrating/#complex-options
+                sourceMap: true,
               plugins: function() {
                 return [
                   autoprefixer({
@@ -123,7 +131,13 @@ export default (paths: Object, useBabelrc: boolean, dev: boolean) => ({
                 ];
               }
             }
-          }
+          },
+            {
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: true
+                }
+            }
         ],
         ...extractTextPluginOptions
       })
